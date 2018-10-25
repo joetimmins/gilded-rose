@@ -22,10 +22,13 @@ object GildedRose {
         items!!.add(Item("Backstage passes to a TAFKAL80ETC concert", 15, 20))
         items!!.add(Item("Conjured Mana Cake", 3, 6))
 
-        updateQuality()
+        items = updateQuality(items)
+        print(items)
     }
 
-    fun updateQuality() {
+    fun updateQuality(item: Item) = updateQuality(mutableListOf(item))
+
+    fun updateQuality(items: MutableList<Item>?): MutableList<Item>? {
         for (i in items!!.indices) {
             if ("Aged Brie" != items!![i].name && "Backstage passes to a TAFKAL80ETC concert" != items!![i].name) {
                 if (items!![i].quality > 0) {
@@ -75,6 +78,7 @@ object GildedRose {
                 }
             }
         }
+        return items
     }
 
 }
