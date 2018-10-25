@@ -29,16 +29,6 @@ local.properties
 *.iws
 **/.idea/*
 
-# IDEA/Android Studio Ignore exceptions
-!/.idea/copyright/
-!/.idea/fileTemplates/
-!/.idea/inspectionProfiles/
-!/.idea/scopes/
-!/.idea/.name
-!/.idea/codeStyles/
-!/.idea/compiler.xml
-!/.idea/encodings.xml
-
 # Captures (heap dumps, layout inspector, etc)
 captures/
 
@@ -46,3 +36,6 @@ captures/
 Thumbs.db
 *.DS_Store
 desktop.ini
+
+# Vim stuff
+*.swp
