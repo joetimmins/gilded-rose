@@ -1,1 +1,1 @@
-include ':app', ':kata'
+include ':kata'
