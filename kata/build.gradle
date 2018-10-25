@@ -1,7 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
 }
-apply plugin: 'java-library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -10,8 +9,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
-sourceCompatibility = "8"
-targetCompatibility = "8"
 repositories {
     mavenCentral()
 }
