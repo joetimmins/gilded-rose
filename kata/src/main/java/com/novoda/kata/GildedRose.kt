@@ -30,13 +30,17 @@ object GildedRose {
 
     fun updateQuality(items: MutableList<Item>): MutableList<Item> {
         items.forEach { item ->
-            if ("Aged Brie" != item.name && "Backstage passes to a TAFKAL80ETC concert" != item.name) {
+            val isNotLegendary = "Sulfuras, Hand of Ragnaros" != item.name
+            val isNotBrie = "Aged Brie" != item.name
+            val isNotBackstagePass = "Backstage passes to a TAFKAL80ETC concert" != item.name
+
+            if (isNotBrie && isNotBackstagePass) {
                 if (item.quality > 0) {
-                    if ("Sulfuras, Hand of Ragnaros" != item.name) {
+                    if (isNotLegendary) {
                         item.quality = item.quality - 1
                     }
                     if (item.name.startsWith("Conjured")) {
-                        item.quality = item.quality - 1
+                        getNewQuality(item, -1)
                     }
                 }
             } else {
@@ -59,19 +63,19 @@ object GildedRose {
                 }
             }
 
-            if ("Sulfuras, Hand of Ragnaros" != item.name) {
+            if (isNotLegendary) {
                 item.sellIn = item.sellIn - 1
             }
 
             if (item.sellIn < 0) {
-                if ("Aged Brie" != item.name) {
-                    if ("Backstage passes to a TAFKAL80ETC concert" != item.name) {
+                if (isNotBrie) {
+                    if (isNotBackstagePass) {
                         if (item.quality > 0) {
-                            if ("Sulfuras, Hand of Ragnaros" != item.name) {
+                            if (isNotLegendary) {
                                 item.quality = item.quality - 1
                             }
                             if (item.name.startsWith("Conjured")) {
-                                item.quality = item.quality - 1
+                                getNewQuality(item, -1)
                             }
                         }
                     } else {
@@ -83,11 +87,13 @@ object GildedRose {
                     }
                 }
             }
-            if (item.quality < 0) {
-                item.quality = 0
-            }
         }
         return items
+    }
+
+    fun getNewQuality(item: Item, amountToModify: Int) {
+        val result = item.quality + amountToModify
+        item.quality = maxOf(0, minOf(50, result))
     }
 
 }
