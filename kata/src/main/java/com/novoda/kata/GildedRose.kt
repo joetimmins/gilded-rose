@@ -37,38 +37,36 @@ object GildedRose {
 
             if (isNotLegendary) {
                 item.sellIn = item.sellIn - 1
-            }
-
-            when {
-                isBrie -> item.updateQuality(1)
-                isBackstagePass -> when {
-                    item.sellIn < 0 -> item.quality = 0
-                    item.sellIn < 5 -> item.updateQuality(3)
-                    item.sellIn < 10 -> item.updateQuality(2)
-                    else -> item.updateQuality(1)
-                }
-                else -> handleConjuredAndLegendaryCases(isConjured, item, isNotLegendary)
-            }
-
-
-            if (item.sellIn < 0) {
                 when {
                     isBrie -> item.updateQuality(1)
-                    else -> handleConjuredAndLegendaryCases(isConjured, item, isNotLegendary)
+                    isBackstagePass -> when {
+                        item.sellIn < 0 -> item.quality = 0
+                        item.sellIn < 5 -> item.updateQuality(3)
+                        item.sellIn < 10 -> item.updateQuality(2)
+                        else -> item.updateQuality(1)
+                    }
+                    else -> handleConjured(isConjured, item)
+                }
+
+
+                if (item.sellIn < 0) {
+                    when {
+                        isBrie -> item.updateQuality(1)
+                        else -> handleConjured(isConjured, item)
+                    }
                 }
             }
         }
         return items
     }
 
-    private fun handleConjuredAndLegendaryCases(
+    private fun handleConjured(
         isConjured: Boolean,
-        item: Item,
-        isNotLegendary: Boolean
+        item: Item
     ) {
         if (isConjured) {
             item.updateQuality(-2)
-        } else if (isNotLegendary) {
+        } else {
             item.updateQuality(-1)
         }
     }
