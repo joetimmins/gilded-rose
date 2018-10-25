@@ -35,6 +35,9 @@ object GildedRose {
                     if ("Sulfuras, Hand of Ragnaros" != items!![i].name) {
                         items!![i].quality = items!![i].quality - 1
                     }
+                    if (items!![i].name.startsWith("Conjured")) {
+                        items!![i].quality = items!![i].quality - 1
+                    }
                 }
             } else {
                 if (items!![i].quality < 50) {
@@ -67,6 +70,9 @@ object GildedRose {
                             if ("Sulfuras, Hand of Ragnaros" != items!![i].name) {
                                 items!![i].quality = items!![i].quality - 1
                             }
+                            if (items!![i].name.startsWith("Conjured")) {
+                                items!![i].quality = items!![i].quality - 1
+                            }
                         }
                     } else {
                         items!![i].quality = items!![i].quality - items!![i].quality
@@ -76,6 +82,9 @@ object GildedRose {
                         items!![i].quality = items!![i].quality + 1
                     }
                 }
+            }
+            if (items!![i].quality < 0) {
+                items!![i].quality = 0
             }
         }
         return items
