@@ -1,1 +1,1 @@
-include ':default'
+include ':app', ':kata'

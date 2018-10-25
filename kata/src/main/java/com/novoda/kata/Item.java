@@ -1,3 +1,4 @@
+package com.novoda.kata;
 
 public class Item {
     public String name;
