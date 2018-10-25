@@ -32,19 +32,15 @@ object GildedRose {
         items.forEach { item ->
             val isNotLegendary = "Sulfuras, Hand of Ragnaros" != item.name
             val isNotBrie = "Aged Brie" != item.name
-            val isNotBackstagePass = "Backstage passes to a TAFKAL80ETC concert" != item.name
+            val isBackstagePass = "Backstage passes to a TAFKAL80ETC concert" == item.name
             val isConjured = item.name.startsWith("Conjured")
 
-            if (isNotBrie && isNotBackstagePass) {
-                if (isConjured) {
-                    item.updateQuality(-2)
-                } else if (isNotLegendary) {
-                    item.updateQuality(-1)
-                }
+            if (isNotBrie && !isBackstagePass) {
+                handleConjuredAndLegendaryCases(isConjured, item, isNotLegendary)
             } else {
                 item.updateQuality(1)
 
-                if ("Backstage passes to a TAFKAL80ETC concert" == item.name) {
+                if (isBackstagePass) {
                     if (item.sellIn < 11) {
                         item.updateQuality(1)
                     }
@@ -61,12 +57,8 @@ object GildedRose {
 
             if (item.sellIn < 0) {
                 if (isNotBrie) {
-                    if (isNotBackstagePass) {
-                        if (isConjured) {
-                            item.updateQuality(-2)
-                        } else if (isNotLegendary) {
-                            item.updateQuality(-1)
-                        }
+                    if (!isBackstagePass) {
+                        handleConjuredAndLegendaryCases(isConjured, item, isNotLegendary)
                     } else {
                         item.quality = 0
                     }
@@ -76,6 +68,18 @@ object GildedRose {
             }
         }
         return items
+    }
+
+    private fun handleConjuredAndLegendaryCases(
+        isConjured: Boolean,
+        item: Item,
+        isNotLegendary: Boolean
+    ) {
+        if (isConjured) {
+            item.updateQuality(-2)
+        } else if (isNotLegendary) {
+            item.updateQuality(-1)
+        }
     }
 
     private fun Item.updateQuality(amountToModify: Int) {
