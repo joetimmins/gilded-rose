@@ -35,18 +35,14 @@ object GildedRose {
             val isBackstagePass = "Backstage passes to a TAFKAL80ETC concert" == item.name
             val isConjured = item.name.startsWith("Conjured")
 
-            if (!isBrie && !isBackstagePass) {
-                handleConjuredAndLegendaryCases(isConjured, item, isNotLegendary)
-            } else {
-                item.updateQuality(1)
-
-                if (isBackstagePass) {
-                    if (item.sellIn < 6) {
-                        item.updateQuality(2)
-                    } else if (item.sellIn < 11) {
-                        item.updateQuality(1)
-                    }
+            when {
+                isBrie -> item.updateQuality(1)
+                isBackstagePass -> when {
+                    item.sellIn < 6 -> item.updateQuality(3)
+                    item.sellIn < 11 -> item.updateQuality(2)
+                    else -> item.updateQuality(1)
                 }
+                else -> handleConjuredAndLegendaryCases(isConjured, item, isNotLegendary)
             }
 
             if (isNotLegendary) {
