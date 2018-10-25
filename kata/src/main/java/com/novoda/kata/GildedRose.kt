@@ -29,63 +29,62 @@ object GildedRose {
     fun updateQuality(item: Item) = updateQuality(mutableListOf(item))
 
     fun updateQuality(items: MutableList<Item>): MutableList<Item> {
-        for (i in items.indices) {
-            val currentItem = items[i]
-            if ("Aged Brie" != currentItem.name && "Backstage passes to a TAFKAL80ETC concert" != currentItem.name) {
-                if (currentItem.quality > 0) {
-                    if ("Sulfuras, Hand of Ragnaros" != currentItem.name) {
-                        currentItem.quality = currentItem.quality - 1
+        items.forEach { item ->
+            if ("Aged Brie" != item.name && "Backstage passes to a TAFKAL80ETC concert" != item.name) {
+                if (item.quality > 0) {
+                    if ("Sulfuras, Hand of Ragnaros" != item.name) {
+                        item.quality = item.quality - 1
                     }
-                    if (currentItem.name.startsWith("Conjured")) {
-                        currentItem.quality = currentItem.quality - 1
+                    if (item.name.startsWith("Conjured")) {
+                        item.quality = item.quality - 1
                     }
                 }
             } else {
-                if (currentItem.quality < 50) {
-                    currentItem.quality = currentItem.quality + 1
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1
 
-                    if ("Backstage passes to a TAFKAL80ETC concert" == currentItem.name) {
-                        if (currentItem.sellIn < 11) {
-                            if (currentItem.quality < 50) {
-                                currentItem.quality = currentItem.quality + 1
+                    if ("Backstage passes to a TAFKAL80ETC concert" == item.name) {
+                        if (item.sellIn < 11) {
+                            if (item.quality < 50) {
+                                item.quality = item.quality + 1
                             }
                         }
 
-                        if (currentItem.sellIn < 6) {
-                            if (currentItem.quality < 50) {
-                                currentItem.quality = currentItem.quality + 1
+                        if (item.sellIn < 6) {
+                            if (item.quality < 50) {
+                                item.quality = item.quality + 1
                             }
                         }
                     }
                 }
             }
 
-            if ("Sulfuras, Hand of Ragnaros" != currentItem.name) {
-                currentItem.sellIn = currentItem.sellIn - 1
+            if ("Sulfuras, Hand of Ragnaros" != item.name) {
+                item.sellIn = item.sellIn - 1
             }
 
-            if (currentItem.sellIn < 0) {
-                if ("Aged Brie" != currentItem.name) {
-                    if ("Backstage passes to a TAFKAL80ETC concert" != currentItem.name) {
-                        if (currentItem.quality > 0) {
-                            if ("Sulfuras, Hand of Ragnaros" != currentItem.name) {
-                                currentItem.quality = currentItem.quality - 1
+            if (item.sellIn < 0) {
+                if ("Aged Brie" != item.name) {
+                    if ("Backstage passes to a TAFKAL80ETC concert" != item.name) {
+                        if (item.quality > 0) {
+                            if ("Sulfuras, Hand of Ragnaros" != item.name) {
+                                item.quality = item.quality - 1
                             }
-                            if (currentItem.name.startsWith("Conjured")) {
-                                currentItem.quality = currentItem.quality - 1
+                            if (item.name.startsWith("Conjured")) {
+                                item.quality = item.quality - 1
                             }
                         }
                     } else {
-                        currentItem.quality = currentItem.quality - currentItem.quality
+                        item.quality = item.quality - item.quality
                     }
                 } else {
-                    if (currentItem.quality < 50) {
-                        currentItem.quality = currentItem.quality + 1
+                    if (item.quality < 50) {
+                        item.quality = item.quality + 1
                     }
                 }
             }
-            if (currentItem.quality < 0) {
-                currentItem.quality = 0
+            if (item.quality < 0) {
+                item.quality = 0
             }
         }
         return items
