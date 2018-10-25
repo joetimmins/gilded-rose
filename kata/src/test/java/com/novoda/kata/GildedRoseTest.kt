@@ -8,7 +8,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithNormalItem() {
         val input = mutableListOf(Item("+5 Dexterity Vest", 10, 20))
-        val expectedOutput = Item("+5 Dexterity Vest", 9, 19)
+        val expectedOutput = mutableListOf(Item("+5 Dexterity Vest", 9, 19))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -17,7 +17,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrie() {
         val input = mutableListOf(Item(name = "Aged Brie", sellIn = 10, quality = 15))
-        val expectedOutput = Item(name = "Aged Brie", sellIn = 9, quality = 16)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = 9, quality = 16))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -26,7 +26,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAtMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = 10, quality = 50)
-        val expectedOutput = Item(name = "Aged Brie", sellIn = 9, quality = 50)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = 9, quality = 50))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -35,7 +35,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieOnSellDate() {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 15)
-        val expectedOutput = Item(name = "Aged Brie", sellIn = -1, quality = 17)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -1, quality = 17))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -44,7 +44,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieOnSellDateNearMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 49)
-        val expectedOutput = Item(name = "Aged Brie", sellIn = -1, quality = 50)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -53,7 +53,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieOnSellDateAtMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 50)
-        val expectedOutput = Item(name = "Aged Brie", sellIn = -1, quality = 50)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -62,7 +62,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAfterSellDate() {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 15)
-        val expectedOutput = Item(name = "Aged Brie", sellIn = -11, quality = 17)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -11, quality = 17))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -71,7 +71,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAfterSellDateNearMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 49)
-        val expectedOutput = Item(name = "Aged Brie", sellIn = -11, quality = 50)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -80,7 +80,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAfterSellDateAtMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 50)
-        val expectedOutput = Item(name = "Aged Brie", sellIn = -11, quality = 50)
+        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
         val actualOutput = GildedRose.updateQuality(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
