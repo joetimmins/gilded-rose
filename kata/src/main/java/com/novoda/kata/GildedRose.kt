@@ -33,26 +33,24 @@ object GildedRose {
             val isNotLegendary = "Sulfuras, Hand of Ragnaros" != item.name
             val isNotBrie = "Aged Brie" != item.name
             val isNotBackstagePass = "Backstage passes to a TAFKAL80ETC concert" != item.name
+            val isConjured = item.name.startsWith("Conjured")
 
             if (isNotBrie && isNotBackstagePass) {
-                if (item.quality > 0) {
-                    if (isNotLegendary) {
-                        updateQuality(item, -1)
-                    }
-                    if (item.name.startsWith("Conjured")) {
-                        updateQuality(item, -1)
-                    }
+                if (isConjured) {
+                    item.updateQuality(-2)
+                } else if (isNotLegendary) {
+                    item.updateQuality(-1)
                 }
             } else {
-                updateQuality(item, 1)
+                item.updateQuality(1)
 
                 if ("Backstage passes to a TAFKAL80ETC concert" == item.name) {
                     if (item.sellIn < 11) {
-                        updateQuality(item, 1)
+                        item.updateQuality(1)
                     }
 
                     if (item.sellIn < 6) {
-                        updateQuality(item, 1)
+                        item.updateQuality(1)
                     }
                 }
             }
@@ -64,26 +62,25 @@ object GildedRose {
             if (item.sellIn < 0) {
                 if (isNotBrie) {
                     if (isNotBackstagePass) {
-                        if (isNotLegendary) {
-                            updateQuality(item, -1)
-                        }
-                        if (item.name.startsWith("Conjured")) {
-                            updateQuality(item, -1)
+                        if (isConjured) {
+                            item.updateQuality(-2)
+                        } else if (isNotLegendary) {
+                            item.updateQuality(-1)
                         }
                     } else {
                         item.quality = 0
                     }
                 } else {
-                    updateQuality(item, 1)
+                    item.updateQuality(1)
                 }
             }
         }
         return items
     }
 
-    fun updateQuality(item: Item, amountToModify: Int) {
-        val result = item.quality + amountToModify
-        item.quality = maxOf(0, minOf(50, result))
+    private fun Item.updateQuality(amountToModify: Int) {
+        val result = quality + amountToModify
+        quality = maxOf(0, minOf(50, result))
     }
 
 }
