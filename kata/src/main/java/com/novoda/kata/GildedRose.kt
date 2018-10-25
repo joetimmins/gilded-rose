@@ -22,13 +22,13 @@ object GildedRose {
         items.add(Item("Backstage passes to a TAFKAL80ETC concert", 15, 20))
         items.add(Item("Conjured Mana Cake", 3, 6))
 
-        items = updateQuality(items)
+        items = updateInventory(items)
         print(items)
     }
 
-    fun updateQuality(item: Item) = updateQuality(mutableListOf(item))
+    fun updateInventory(item: Item) = updateInventory(mutableListOf(item))
 
-    fun updateQuality(items: MutableList<Item>): MutableList<Item> {
+    fun updateInventory(items: MutableList<Item>): MutableList<Item> {
         items.forEach { item ->
             val isNotLegendary = "Sulfuras, Hand of Ragnaros" != item.name
             val isNotBrie = "Aged Brie" != item.name
@@ -37,28 +37,22 @@ object GildedRose {
             if (isNotBrie && isNotBackstagePass) {
                 if (item.quality > 0) {
                     if (isNotLegendary) {
-                        item.quality = item.quality - 1
+                        updateQuality(item, -1)
                     }
                     if (item.name.startsWith("Conjured")) {
-                        getNewQuality(item, -1)
+                        updateQuality(item, -1)
                     }
                 }
             } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1
+                updateQuality(item, 1)
 
-                    if ("Backstage passes to a TAFKAL80ETC concert" == item.name) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1
-                            }
-                        }
+                if ("Backstage passes to a TAFKAL80ETC concert" == item.name) {
+                    if (item.sellIn < 11) {
+                        updateQuality(item, 1)
+                    }
 
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1
-                            }
-                        }
+                    if (item.sellIn < 6) {
+                        updateQuality(item, 1)
                     }
                 }
             }
@@ -75,23 +69,21 @@ object GildedRose {
                                 item.quality = item.quality - 1
                             }
                             if (item.name.startsWith("Conjured")) {
-                                getNewQuality(item, -1)
+                                updateQuality(item, -1)
                             }
                         }
                     } else {
                         item.quality = item.quality - item.quality
                     }
                 } else {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1
-                    }
+                    updateQuality(item, 1)
                 }
             }
         }
         return items
     }
 
-    fun getNewQuality(item: Item, amountToModify: Int) {
+    fun updateQuality(item: Item, amountToModify: Int) {
         val result = item.quality + amountToModify
         item.quality = maxOf(0, minOf(50, result))
     }
