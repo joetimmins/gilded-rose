@@ -64,16 +64,14 @@ object GildedRose {
             if (item.sellIn < 0) {
                 if (isNotBrie) {
                     if (isNotBackstagePass) {
-                        if (item.quality > 0) {
-                            if (isNotLegendary) {
-                                item.quality = item.quality - 1
-                            }
-                            if (item.name.startsWith("Conjured")) {
-                                updateQuality(item, -1)
-                            }
+                        if (isNotLegendary) {
+                            updateQuality(item, -1)
+                        }
+                        if (item.name.startsWith("Conjured")) {
+                            updateQuality(item, -1)
                         }
                     } else {
-                        item.quality = item.quality - item.quality
+                        item.quality = 0
                     }
                 } else {
                     updateQuality(item, 1)
