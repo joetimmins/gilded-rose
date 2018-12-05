@@ -35,4 +35,4 @@ who will insta-rage and one-shot you as he doesn't believe in shared code owners
 You can make the UpdateQuality method and Items property static if you like, we'll cover for you.
 
 Just for clarification, an item can never have its Quality increase above 50.
-However "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters.
+However "Sulfuras" is a legendary item and as such its Quality is 80 and it never changes.
