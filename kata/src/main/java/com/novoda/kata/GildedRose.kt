@@ -89,5 +89,4 @@ class GildedRose {
         val result = quality + amountToModify
         quality = maxOf(0, minOf(50, result))
     }
-
 }
