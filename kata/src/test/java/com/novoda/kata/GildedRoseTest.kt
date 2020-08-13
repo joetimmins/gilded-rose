@@ -12,23 +12,16 @@ class GildedRoseTest {
         val input = listOf(Item("+5 Dexterity Vest", 10, 20))
         val expectedOutput = listOf(Item("+5 Dexterity Vest", 9, 19))
 
-        val gildedRose = createGildedRose()
-        val testObserver = gildedRose.inventory.test()
-        gildedRose.updateInventoryy(input)
-
-        testObserver
-            .assertValueSequence(expectedOutput)
-            .assertNotComplete()
+        testGildedRose(input, expectedOutput)
     }
+
 
     @Test
     fun testUpdateQuantityWithAgedBrie() {
         val input = listOf(Item(name = "Aged Brie", sellIn = 10, quality = 15))
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = 9, quality = 16))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -36,9 +29,7 @@ class GildedRoseTest {
         val input = Item(name = "Aged Brie", sellIn = 10, quality = 50)
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = 9, quality = 50))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testSingleItem(input, expectedOutput)
     }
 
     @Test
@@ -46,9 +37,7 @@ class GildedRoseTest {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 15)
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -1, quality = 17))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testSingleItem(input, expectedOutput)
     }
 
     @Test
@@ -56,9 +45,7 @@ class GildedRoseTest {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 49)
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testSingleItem(input, expectedOutput)
     }
 
     @Test
@@ -66,9 +53,7 @@ class GildedRoseTest {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 50)
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testSingleItem(input, expectedOutput)
     }
 
     @Test
@@ -76,9 +61,7 @@ class GildedRoseTest {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 15)
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -11, quality = 17))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testSingleItem(input, expectedOutput)
     }
 
     @Test
@@ -86,9 +69,7 @@ class GildedRoseTest {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 49)
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testSingleItem(input, expectedOutput)
     }
 
     @Test
@@ -96,6 +77,10 @@ class GildedRoseTest {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 50)
         val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
 
+        testSingleItem(input, expectedOutput)
+    }
+
+    private fun testSingleItem(input: Item, expectedOutput: List<Item>) {
         val actualOutput = createGildedRose().updateInventory(input)
 
         assertThat(actualOutput).isEqualTo(expectedOutput)
@@ -107,9 +92,7 @@ class GildedRoseTest {
         val input = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 10, quality = 80))
         val expectedOutput = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 10, quality = 80))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -117,9 +100,7 @@ class GildedRoseTest {
         val input = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
         val expectedOutput = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -127,9 +108,7 @@ class GildedRoseTest {
         val input = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = -10, quality = 80))
         val expectedOutput = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = -10, quality = 80))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     // MARK = Backstage Passes
@@ -140,9 +119,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 6))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -151,9 +128,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 50))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -162,9 +137,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 9, quality = 7))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -173,9 +146,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 5, quality = 7))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -184,9 +155,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 4, quality = 8))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -195,9 +164,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 0, quality = 8))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -206,9 +173,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 0))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -217,9 +182,7 @@ class GildedRoseTest {
         val expectedOutput =
             listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -2, quality = 0))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     // MARK = Conjured Items
@@ -229,9 +192,7 @@ class GildedRoseTest {
         val input = listOf(Item(name = "Conjured Mana Cake", sellIn = 5, quality = 5))
         val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = 4, quality = 3))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -239,9 +200,7 @@ class GildedRoseTest {
         val input = listOf(Item(name = "Conjured Mana Cake", sellIn = 5, quality = 1))
         val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = 4, quality = 0))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -249,9 +208,7 @@ class GildedRoseTest {
         val input = listOf(Item(name = "Conjured Mana Cake", sellIn = 0, quality = 5))
         val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = -1, quality = 1))
 
-        val actualOutput = createGildedRose().updateInventory(input)
-
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+        testGildedRose(input, expectedOutput)
     }
 
     @Test
@@ -259,8 +216,16 @@ class GildedRoseTest {
         val input = listOf(Item(name = "Conjured Mana Cake", sellIn = -1, quality = 5))
         val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = -2, quality = 1))
 
-        val actualOutput = createGildedRose().updateInventory(input)
+        testGildedRose(input, expectedOutput)
+    }
 
-        assertThat(actualOutput).isEqualTo(expectedOutput)
+    private fun testGildedRose(input: List<Item>, expectedOutput: List<Item>) {
+        val gildedRose = createGildedRose()
+        val testObserver = gildedRose.inventory.test()
+        gildedRose.updateInventoryy(input)
+
+        testObserver
+            .assertValueSequence(expectedOutput)
+            .assertNotComplete()
     }
 }
