@@ -1,5 +1,7 @@
 package com.novoda.kata
 
+import io.reactivex.rxjava3.core.Observable
+
 class GildedRose {
     companion object {
 
@@ -27,6 +29,10 @@ class GildedRose {
             print(newItems)
         }
     }
+
+    val inventory: Observable<Item> = Observable.empty<Item>()
+
+    fun updateInventoryy(items: List<Item>) {}
 
     fun updateInventory(item: Item) = updateInventory(listOf(item))
 
