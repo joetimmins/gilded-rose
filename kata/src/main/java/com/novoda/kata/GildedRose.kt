@@ -35,6 +35,8 @@ class GildedRose {
     private val _inventory = BehaviorSubject.create<Item>()
     val inventory = _inventory as Observable<Item>
 
+    fun updateInventoryy(item: Item) = updateInventoryy(listOf(item))
+
     fun updateInventoryy(items: List<Item>) {
         val newItems = updateInventory(items)
         newItems.forEach { _inventory.onNext(it) }
