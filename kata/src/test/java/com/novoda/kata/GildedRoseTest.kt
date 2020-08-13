@@ -9,8 +9,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithNormalItem() {
-        val input = mutableListOf(Item("+5 Dexterity Vest", 10, 20))
-        val expectedOutput = mutableListOf(Item("+5 Dexterity Vest", 9, 19))
+        val input = listOf(Item("+5 Dexterity Vest", 10, 20))
+        val expectedOutput = listOf(Item("+5 Dexterity Vest", 9, 19))
 
         val gildedRose = createGildedRose()
         val testObserver = gildedRose.inventory.test()
@@ -23,8 +23,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithAgedBrie() {
-        val input = mutableListOf(Item(name = "Aged Brie", sellIn = 10, quality = 15))
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = 9, quality = 16))
+        val input = listOf(Item(name = "Aged Brie", sellIn = 10, quality = 15))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = 9, quality = 16))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -34,7 +34,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAtMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = 10, quality = 50)
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = 9, quality = 50))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = 9, quality = 50))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -44,7 +44,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieOnSellDate() {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 15)
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -1, quality = 17))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -1, quality = 17))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -54,7 +54,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieOnSellDateNearMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 49)
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -64,7 +64,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieOnSellDateAtMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = 0, quality = 50)
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -1, quality = 50))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -74,7 +74,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAfterSellDate() {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 15)
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -11, quality = 17))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -11, quality = 17))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -84,7 +84,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAfterSellDateNearMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 49)
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -94,7 +94,7 @@ class GildedRoseTest {
     @Test
     fun testUpdateQuantityWithAgedBrieAfterSellDateAtMaxQuality() {
         val input = Item(name = "Aged Brie", sellIn = -10, quality = 50)
-        val expectedOutput = mutableListOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
+        val expectedOutput = listOf(Item(name = "Aged Brie", sellIn = -11, quality = 50))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -104,8 +104,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithSulfuras() {
-        val input = mutableListOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 10, quality = 80))
-        val expectedOutput = mutableListOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 10, quality = 80))
+        val input = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 10, quality = 80))
+        val expectedOutput = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 10, quality = 80))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -114,8 +114,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithSulfurasOnSellDate() {
-        val input = mutableListOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
-        val expectedOutput = mutableListOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
+        val input = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
+        val expectedOutput = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -124,8 +124,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithSulfurasAfterSellDate() {
-        val input = mutableListOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = -10, quality = 80))
-        val expectedOutput = mutableListOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = -10, quality = 80))
+        val input = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = -10, quality = 80))
+        val expectedOutput = listOf(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = -10, quality = 80))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -136,9 +136,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesLongBeforeSellDate() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 5))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 5))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 6))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 6))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -147,9 +147,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesLongBeforeSellDateAtMaxQuality() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 50))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 50))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 50))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 50))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -158,9 +158,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesBeforeSellDateUpperBound() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 5))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 5))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 9, quality = 7))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 9, quality = 7))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -169,9 +169,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesBeforeSellDateLowerBound() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 6, quality = 5))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 6, quality = 5))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 5, quality = 7))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 5, quality = 7))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -180,9 +180,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesJustBeforeSellDateUpperBound() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 5, quality = 5))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 5, quality = 5))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 4, quality = 8))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 4, quality = 8))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -191,9 +191,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesJustBeforeSellDateLowerBound() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 1, quality = 5))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 1, quality = 5))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 0, quality = 8))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 0, quality = 8))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -202,9 +202,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesOnSellDate() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 0, quality = 5))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 0, quality = 5))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 0))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 0))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -213,9 +213,9 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithPassesAfterSellDate() {
-        val input = mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 5))
+        val input = listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 5))
         val expectedOutput =
-            mutableListOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -2, quality = 0))
+            listOf(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -2, quality = 0))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -226,8 +226,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithConjuredItem() {
-        val input = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = 5, quality = 5))
-        val expectedOutput = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = 4, quality = 3))
+        val input = listOf(Item(name = "Conjured Mana Cake", sellIn = 5, quality = 5))
+        val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = 4, quality = 3))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -236,8 +236,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithConjuredItemAtLowQuality() {
-        val input = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = 5, quality = 1))
-        val expectedOutput = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = 4, quality = 0))
+        val input = listOf(Item(name = "Conjured Mana Cake", sellIn = 5, quality = 1))
+        val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = 4, quality = 0))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -246,8 +246,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithConjuredItemOnSellDate() {
-        val input = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = 0, quality = 5))
-        val expectedOutput = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = -1, quality = 1))
+        val input = listOf(Item(name = "Conjured Mana Cake", sellIn = 0, quality = 5))
+        val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = -1, quality = 1))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
@@ -256,8 +256,8 @@ class GildedRoseTest {
 
     @Test
     fun testUpdateQuantityWithConjuredItemAfterSellDate() {
-        val input = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = -1, quality = 5))
-        val expectedOutput = mutableListOf(Item(name = "Conjured Mana Cake", sellIn = -2, quality = 1))
+        val input = listOf(Item(name = "Conjured Mana Cake", sellIn = -1, quality = 5))
+        val expectedOutput = listOf(Item(name = "Conjured Mana Cake", sellIn = -2, quality = 1))
 
         val actualOutput = createGildedRose().updateInventory(input)
 
