@@ -1,15 +1,12 @@
 package com.novoda.kata
 
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 class GildedRose {
     companion object {
 
         private val gildedRose = GildedRose()
-        private val disposables = CompositeDisposable()
 
         /**
          * @param args
@@ -30,7 +27,6 @@ class GildedRose {
 
             gildedRose.inventory
                 .subscribe { println(it) }
-                .addTo(disposables)
 
             gildedRose.updateInventoryy(items)
         }
@@ -95,6 +91,3 @@ class GildedRose {
     }
 
 }
-
-private fun Disposable.addTo(disposables: CompositeDisposable) =
-    disposables.add(this)
