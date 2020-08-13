@@ -1,34 +1,36 @@
 package com.novoda.kata
 
-import java.util.*
+class GildedRose {
+    companion object {
 
-object GildedRose {
+        private val gildedRose = GildedRose()
 
-    private var items: MutableList<Item> = Collections.emptyList()
+        /**
+         * @param args
+         */
+        @JvmStatic
+        fun main(args: Array<String>) {
 
-    /**
-     * @param args
-     */
-    @JvmStatic
-    fun main(args: Array<String>) {
+            println("OMGHAI!")
 
-        println("OMGHAI!")
+            val items = listOf(
+                Item("+5 Dexterity Vest", 10, 20),
+                Item("Aged Brie", 2, 0),
+                Item("Elixir of the Mongoose", 5, 7),
+                Item("Sulfuras, Hand of Ragnaros", 0, 80),
+                Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+                Item("Conjured Mana Cake", 3, 6)
+            )
 
-        items = ArrayList()
-        items.add(Item("+5 Dexterity Vest", 10, 20))
-        items.add(Item("Aged Brie", 2, 0))
-        items.add(Item("Elixir of the Mongoose", 5, 7))
-        items.add(Item("Sulfuras, Hand of Ragnaros", 0, 80))
-        items.add(Item("Backstage passes to a TAFKAL80ETC concert", 15, 20))
-        items.add(Item("Conjured Mana Cake", 3, 6))
+            val newItems = gildedRose.updateInventory(items)
 
-        items = updateInventory(items)
-        print(items)
+            print(newItems)
+        }
     }
 
-    fun updateInventory(item: Item) = updateInventory(mutableListOf(item))
+    fun updateInventory(item: Item) = updateInventory(listOf(item))
 
-    fun updateInventory(items: MutableList<Item>): MutableList<Item> {
+    fun updateInventory(items: List<Item>): List<Item> {
         items.forEach { item ->
             val isNotLegendary = "Sulfuras, Hand of Ragnaros" != item.name
             val isBrie = "Aged Brie" == item.name
