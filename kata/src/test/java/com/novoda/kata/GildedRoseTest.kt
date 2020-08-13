@@ -13,13 +13,12 @@ class GildedRoseTest {
         val expectedOutput = mutableListOf(Item("+5 Dexterity Vest", 9, 19))
 
         val gildedRose = createGildedRose()
+        val testObserver = gildedRose.inventory.test()
+        gildedRose.updateInventoryy(input)
 
-        gildedRose.inventory
-            .test()
+        testObserver
             .assertValueSequence(expectedOutput)
             .assertNotComplete()
-
-        gildedRose.updateInventoryy(input)
     }
 
     @Test

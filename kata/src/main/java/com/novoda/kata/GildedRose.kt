@@ -1,6 +1,8 @@
 package com.novoda.kata
 
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 class GildedRose {
     companion object {
@@ -30,9 +32,13 @@ class GildedRose {
         }
     }
 
-    val inventory: Observable<Item> = Observable.empty<Item>()
+    private val _inventory = BehaviorSubject.create<Item>()
+    val inventory = _inventory as Observable<Item>
 
-    fun updateInventoryy(items: List<Item>) {}
+    fun updateInventoryy(items: List<Item>) {
+        val newItems = updateInventory(items)
+        newItems.forEach { _inventory.onNext(it) }
+    }
 
     fun updateInventory(item: Item) = updateInventory(listOf(item))
 
