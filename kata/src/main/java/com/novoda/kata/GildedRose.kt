@@ -43,50 +43,45 @@ class GildedRose {
     }
 
     private fun updateInventory(items: List<Item>): List<Item> {
-        items.forEach { item ->
+        return items.map { item ->
             val isNotLegendary = "Sulfuras, Hand of Ragnaros" != item.name
             val isBrie = "Aged Brie" == item.name
             val isBackstagePass = "Backstage passes to a TAFKAL80ETC concert" == item.name
             val isConjured = item.name.startsWith("Conjured")
 
             if (isNotLegendary) {
-                item.sellIn = item.sellIn - 1
-                when {
-                    isBrie -> item.updateQuality(1)
+                val itemWithUpdatedSellByDate = item.copy(sellIn = item.sellIn - 1)
+                val itemWithUpdatedQuality = when {
+                    isBrie -> itemWithUpdatedSellByDate.updateQuality(1)
                     isBackstagePass -> when {
-                        item.sellIn < 0 -> item.quality = 0
-                        item.sellIn < 5 -> item.updateQuality(3)
-                        item.sellIn < 10 -> item.updateQuality(2)
-                        else -> item.updateQuality(1)
+                        itemWithUpdatedSellByDate.sellIn < 0 -> itemWithUpdatedSellByDate.copy(quality = 0)
+                        itemWithUpdatedSellByDate.sellIn < 5 -> itemWithUpdatedSellByDate.updateQuality(3)
+                        itemWithUpdatedSellByDate.sellIn < 10 -> itemWithUpdatedSellByDate.updateQuality(2)
+                        else -> itemWithUpdatedSellByDate.updateQuality(1)
                     }
-                    else -> handleConjured(isConjured, item)
+                    else -> handleConjured(isConjured, itemWithUpdatedSellByDate)
                 }
 
+                val itemWithFinalQualityUpdate =
+                    if (itemWithUpdatedQuality.sellIn < 0) {
+                        when {
+                            isBrie -> itemWithUpdatedQuality.updateQuality(1)
+                            else -> handleConjured(isConjured, itemWithUpdatedQuality)
+                        }
+                    } else itemWithUpdatedQuality
 
-                if (item.sellIn < 0) {
-                    when {
-                        isBrie -> item.updateQuality(1)
-                        else -> handleConjured(isConjured, item)
-                    }
-                }
-            }
-        }
-        return items
-    }
-
-    private fun handleConjured(
-        isConjured: Boolean,
-        item: Item
-    ) {
-        if (isConjured) {
-            item.updateQuality(-2)
-        } else {
-            item.updateQuality(-1)
+                itemWithFinalQualityUpdate
+            } else item
         }
     }
 
-    private fun Item.updateQuality(amountToModify: Int) {
+    private fun handleConjured(isConjured: Boolean, item: Item) =
+        if (isConjured) item.updateQuality(-2)
+        else item.updateQuality(-1)
+
+    private fun Item.updateQuality(amountToModify: Int): Item {
         val result = quality + amountToModify
-        quality = maxOf(0, minOf(50, result))
+        val updatedQuality = maxOf(0, minOf(50, result))
+        return copy(quality = updatedQuality)
     }
 }
