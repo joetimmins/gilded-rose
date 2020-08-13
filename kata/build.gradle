@@ -6,8 +6,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'com.google.truth:truth:0.42'
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'com.google.truth:truth:1.0.1'
 }
 
 repositories {
