@@ -1,13 +1,15 @@
 package com.novoda.kata
 
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 class GildedRose {
     companion object {
 
         private val gildedRose = GildedRose()
+        private val disposables = CompositeDisposable()
 
         /**
          * @param args
@@ -26,13 +28,15 @@ class GildedRose {
                 Item("Conjured Mana Cake", 3, 6)
             )
 
-            val newItems = gildedRose.updateInventory(items)
+            gildedRose.inventory
+                .subscribe { println(it) }
+                .addTo(disposables)
 
-            print(newItems)
+            gildedRose.updateInventoryy(items)
         }
     }
 
-    private val _inventory = BehaviorSubject.create<Item>()
+    private val _inventory = PublishSubject.create<Item>()
     val inventory = _inventory as Observable<Item>
 
     fun updateInventoryy(item: Item) = updateInventoryy(listOf(item))
@@ -42,9 +46,7 @@ class GildedRose {
         newItems.forEach { _inventory.onNext(it) }
     }
 
-    fun updateInventory(item: Item) = updateInventory(listOf(item))
-
-    fun updateInventory(items: List<Item>): List<Item> {
+    private fun updateInventory(items: List<Item>): List<Item> {
         items.forEach { item ->
             val isNotLegendary = "Sulfuras, Hand of Ragnaros" != item.name
             val isBrie = "Aged Brie" == item.name
@@ -93,3 +95,6 @@ class GildedRose {
     }
 
 }
+
+private fun Disposable.addTo(disposables: CompositeDisposable) =
+    disposables.add(this)
